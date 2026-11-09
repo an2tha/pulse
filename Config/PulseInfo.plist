@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>app.pulseplanner.pulse.start-small</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Start small</string>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>play.fill</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>app.pulseplanner.pulse.capture</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Quick capture</string>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>tray.and.arrow.down</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>app.pulseplanner.pulse.check-in</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Check in</string>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>waveform.path</string>
+		</dict>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a photo to attach to a task or record its completion.</string>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>app.pulseplanner.pulse</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>pulseplanner</string>
+				<string>app.pulseplanner.pulse</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Use the readings you select to estimate energy and show health trends. You can also view workouts, water, protein and weight shared by OneRep.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Choose a calendar to keep busy times up to date in Plan, import events, or publish a focus block.</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Import reminders you select or keep chosen lists up to date in Pulse.</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>onerep</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,23 @@
+# Private sync
+
+Private sync is opt-in. The user selects a Files folder, usually in iCloud Drive. A device generates a random 256-bit recovery key with CryptoKit. Another device must select the same parent folder and enter that key. Each device stores the key in its local Keychain with `WhenUnlockedThisDeviceOnly` protection. Pulse has no key server or password-reset service. The user keeps a separate private copy of the recovery key.
+
+## What is synced
+
+The encrypted snapshot contains tasks, calendar commitments, check-ins, focus history, goals, templates and weekly practices. Task and check-in notes are included. Photos and their captions, including completion proof, remain in the local journal and its explicit JSON backups. Skip surveys also stay in the local journal and its JSON backups. Running timers, system permission grants, connection identifiers and device preferences stay on their originating devices. The Health screen reads its selected aggregates into memory for on-device review. Automatic plan adjustments are a device-local preference. Pulse rebuilds its estimates from available data after relaunch. Hourly corrections, expected-energy windows and saved day-ahead forecasts are stored in the journal and in JSON backups, outside private sync. In-progress Quick capture and To-do dump drafts are device-local and excluded from exports. A connected live calendar supplies an in-memory availability overlay on the device. It never copies HealthKit readings into a sync snapshot.
+
+Task records carry their selected repeat weekdays, available hours, Inbox-only choice, saved sprint identity, and any linked prep occurrence with its last known start. The selected calendar, live event feed, automatic Reminders lists and source identifiers stay on the device. Reminders imported as tasks use ordinary task sync. Unsent sprint drafts are local. A draft’s edit time and time zone stay on the device with its text. The days and recovery readings displayed under Estimate sources are computed in memory.
+
+## File format and conflicts
+
+Each revision has a random UUID. Its `.pulsevault` file contains AES-256-GCM ciphertext, a random nonce and an authentication tag. The format identifier and revision UUID are additional authenticated data. Its `.pulselink` file contains the revision identifier, creation time and parent revision identifiers, authenticated with HMAC-SHA256 using a separately derived HKDF key. The payload is written atomically first. Publishing the manifest commits the revision. A download with incomplete files leaves the local journal intact.
+
+The client tracks its last accepted revision and a SHA-256 digest of its synced content. On foreground entry, a user-initiated refresh or a debounced local save, it compares local and folder state. A descendant revision can replace unchanged local content. A divergent local journal, multiple heads, or a new device requires the user to review revision counts and choose a journal. The choice is checked against the folder heads again before writing. Resolving concurrent revisions writes a new revision that names the prior heads as parents. Pulls wait until a running or paused focus session is finished.
+
+## Trust and recovery
+
+The folder provider sees filenames, lineage, sizes and timing. It can delay delivery, remove versions or withhold newer data. Authentication detects modified manifests and ciphertext. An unlocked device with the key can read or alter the journal. Anyone who has copied the recovery key remains able to read revisions made with it.
+
+Disconnect removes this device’s key, folder bookmark and sync baseline. Encrypted revisions remain in the folder. To retire a vault, disconnect its devices and delete its Pulse Sync directory, including provider trash if appropriate. To rotate a key, create a vault in a different folder and connect the intended devices to it. Plain JSON and CSV exports are independently controlled, unencrypted files.
+
+Stimulant product names, labeled amounts, personal effects and blood tests remain local and are included in explicit JSON backups. Activity definitions, activity ratings and protected/focus rules participate in encrypted private sync. Pulse calculates its HRV scores on the device. Linking a OneRep account reads the selected day directly from OneRep into memory. Connect opens OneRep’s sign-in and consent page. Pulse keeps the resulting access and refresh tokens in the device Keychain. Older connections can keep using their existing personal key until the user signs in again. Saving a workout in Quick Log sends that workout to OneRep. Shared Apple Health readings are a separate, optional source. Screen Time reports run inside Apple’s report extension.
